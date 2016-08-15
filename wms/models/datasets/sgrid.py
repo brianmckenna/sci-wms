@@ -15,6 +15,7 @@ from pyaxiom.netcdf import EnhancedDataset, EnhancedMFDataset
 from pysgrid import load_grid
 from pysgrid.read_netcdf import NetCDFDataset as SGrid
 from pysgrid.processing_2d import avg_to_cell_center, rotate_vectors
+from pysgrid.utils import pair_arrays
 
 import pandas as pd
 
@@ -61,7 +62,8 @@ class SGridDataset(Dataset, NetCDFDataset):
 
             def rtree_generator_function():
                 c = 0
-                for i, axis in enumerate(sg.centers):
+                centers = pair_arrays(sg.center_lon, sg.center_lat)
+                for i, axis in enumerate(centers):
                     for j, (x, y) in enumerate(axis):
                         c += 1
                         yield (c, (x, y, x, y), (i, j))
@@ -133,7 +135,8 @@ class SGridDataset(Dataset, NetCDFDataset):
             lon_name, lat_name = cached_sg.face_coordinates
             lon_obj = getattr(cached_sg, lon_name)
             lat_obj = getattr(cached_sg, lat_name)
-            centers = cached_sg.centers
+            #centers = cached_sg.centers
+            centers = pair_arrays(cached_sg.center_lon, cached_sg.center_lat)
             lon = centers[..., 0][lon_obj.center_slicing]
             lat = centers[..., 1][lat_obj.center_slicing]
             spatial_idx = data_handler.lat_lon_subset_idx(lon, lat,
@@ -215,7 +218,8 @@ class SGridDataset(Dataset, NetCDFDataset):
             lon_name, lat_name = cached_sg.face_coordinates
             lon_obj = getattr(cached_sg, lon_name)
             lat_obj = getattr(cached_sg, lat_name)
-            centers = cached_sg.centers
+            #centers = cached_sg.centers
+            centers = pair_arrays(cached_sg.center_lon, cached_sg.center_lat)
             lon = centers[..., 0][lon_obj.center_slicing]
             lat = centers[..., 1][lat_obj.center_slicing]
 
@@ -387,7 +391,8 @@ class SGridDataset(Dataset, NetCDFDataset):
         except:
             pass
         else:
-            centers = cached_sg.centers
+            #centers = cached_sg.centers
+            centers = pair_arrays(cached_sg.center_lon, cached_sg.center_lat)
             longitudes = centers[..., 0]
             latitudes = centers[..., 1]
             lon_name, lat_name = cached_sg.face_coordinates
