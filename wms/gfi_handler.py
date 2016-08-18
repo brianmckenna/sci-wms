@@ -8,7 +8,8 @@ def from_dataframe(request, df):
     elif request.GET['info_format'] == 'text/tsv':
         response = HttpResponse(content_type='text/tsv')
         response.write(df.to_csv(sep='\t', index=False, float_format='%.4f'))
-    elif request.GET['info_format'] == 'application/json':
+    #elif request.GET['info_format'] == 'application/json':
+    else: # default JSON
         response = HttpResponse(content_type='application/json')
         response.write(df.to_json(orient='records'))
 

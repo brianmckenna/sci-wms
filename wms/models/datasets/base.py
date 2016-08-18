@@ -50,8 +50,11 @@ class Dataset(TypedModel):
             return klass.__subclasses__() + [g for s in klass.__subclasses__()
                                              for g in all_subclasses(s)]
         for x in all_subclasses(cls):
-            if hasattr(x, 'is_valid') and x.is_valid(uri) is True:
-                return x
+            try:
+                if hasattr(x, 'is_valid') and x.is_valid(uri) is True:
+                    return x
+            except ValueError: # ValueError coming back from new pysgrid
+                pass
 
     def path(self):
         if urlparse(self.uri).scheme == "" and not self.uri.startswith("/"):
