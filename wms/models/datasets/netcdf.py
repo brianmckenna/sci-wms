@@ -176,14 +176,14 @@ class NetCDFDataset(object):
                 v_names = ['northward_wind']
                 us = nc.get_variables_by_attributes(standard_name=lambda v: v in u_names)
                 vs = nc.get_variables_by_attributes(standard_name=lambda v: v in v_names)
-                VirtualLayer.make_vector_layer(us, vs, 'winds', 'barbs', self.id)
+                #VirtualLayer.make_vector_layer(us, vs, 'winds', 'barbs', self.id)
 
                 # Grid projected Winds
                 u_names = ['x_wind', 'grid_eastward_wind']
                 v_names = ['y_wind', 'grid_northward_wind']
                 us = nc.get_variables_by_attributes(standard_name=lambda v: v in u_names)
                 vs = nc.get_variables_by_attributes(standard_name=lambda v: v in v_names)
-                VirtualLayer.make_vector_layer(us, vs, 'grid_winds', 'barbs', self.id)
+                #VirtualLayer.make_vector_layer(us, vs, 'grid_winds', 'barbs', self.id)
 
                 # Earth projected Ice velocity
                 u_names = ['eastward_sea_ice_velocity']
