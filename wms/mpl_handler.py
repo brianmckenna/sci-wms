@@ -8,6 +8,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 from wms import logger
+import wms.add_cmaps
 
 
 DEFAULT_HATCHES = ['.', '+', '*', '-', '/', ',', '\\', 'x', 'o', '[', ']', '^',

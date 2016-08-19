@@ -9,6 +9,7 @@ from matplotlib.pyplot import get_cmap, colorbar, legend
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 
+import wms.add_cmaps
 from wms.mpl_handler import DEFAULT_HATCHES
 from wms import logger
 
