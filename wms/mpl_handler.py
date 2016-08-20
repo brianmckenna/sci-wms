@@ -75,9 +75,7 @@ def tripcolor_response(tri_subset, data, request, data_location=None, dpi=None):
     # Set to black like ncWMS?
     # Configurable by user?
     if cmin is not None and cmax is not None:
-        data[data > cmax] = cmax
-        data[data < cmin] = cmin
-        norm = norm_func(vmin=cmin, vmax=cmax)
+        norm = norm_func(vmin=cmin, vmax=cmax, clip=True)
     else:
         norm = norm_func()
 
@@ -137,18 +135,16 @@ def tricontouring_response(tri_subset, data, request, dpi=None):
     # Set to black like ncWMS?
     # Configurable by user?
     if cmin is not None and cmax is not None:
-        data[data > cmax] = cmax
-        data[data < cmin] = cmin
         lvls = np.linspace(cmin, cmax, nlvls)
-        norm = norm_func(vmin=cmin, vmax=cmax)
+        norm = norm_func(vmin=cmin, vmax=cmax, clip=True)
     else:
         lvls = nlvls
         norm = norm_func()
 
     if request.GET['image_type'] == 'filledcontours':
-        ax.tricontourf(tri_subset, data, lvls, norm=norm, cmap=colormap)
+        ax.tricontourf(tri_subset, data, lvls, norm=norm, cmap=colormap, extend='both')
     elif request.GET['image_type'] == 'contours':
-        ax.tricontour(tri_subset, data, lvls, norm=norm, cmap=colormap)
+        ax.tricontour(tri_subset, data, lvls, norm=norm, cmap=colormap, extend='both')
 
     ax.set_xlim(bbox.minx, bbox.maxx)
     ax.set_ylim(bbox.miny, bbox.maxy)
@@ -200,9 +196,7 @@ def quiver_response(lon, lat, dx, dy, request, dpi=None):
     # Set to black like ncWMS?
     # Configurable by user?
     if cmin is not None and cmax is not None:
-        mags[mags > cmax] = cmax
-        mags[mags < cmin] = cmin
-        norm = norm_func(vmin=cmin, vmax=cmax)
+        norm = norm_func(vmin=cmin, vmax=cmax, clip=True)
     else:
         norm = norm_func()
 
@@ -248,24 +242,22 @@ def contouring_response(lon, lat, data, request, dpi=None):
         norm_func = mpl.colors.Normalize
 
     if cmin is not None and cmax is not None:
-        data[data > cmax] = cmax
-        data[data < cmin] = cmin
         lvls = np.linspace(cmin, cmax, nlvls)
-        norm = norm_func(vmin=cmin, vmax=cmax)
+        norm = norm_func(vmin=cmin, vmax=cmax, clip=True)
     else:
         lvls = nlvls
         norm = norm_func()
 
     if request.GET['image_type'] == 'filledcontours':
-        ax.contourf(x, y, data, lvls, norm=norm, cmap=colormap)
+        ax.contourf(x, y, data, lvls, norm=norm, cmap=colormap, extend='both')
     elif request.GET['image_type'] == 'contours':
-        ax.contour(x, y, data, lvls, norm=norm, cmap=colormap)
+        ax.contour(x, y, data, lvls, norm=norm, cmap=colormap, extend='both')
     elif request.GET['image_type'] == 'filledhatches':
         hatches = DEFAULT_HATCHES[:lvls]
-        ax.contourf(x, y, data, lvls, norm=norm, cmap=colormap, hatches=hatches)
+        ax.contourf(x, y, data, lvls, norm=norm, cmap=colormap, hatches=hatches, extend='both')
     elif request.GET['image_type'] == 'hatches':
         hatches = DEFAULT_HATCHES[:lvls]
-        ax.contourf(x, y, data, lvls, norm=norm, colors='none', hatches=hatches)
+        ax.contourf(x, y, data, lvls, norm=norm, colors='none', hatches=hatches, extend='both')
 
     ax.set_xlim(bbox.minx, bbox.maxx)
     ax.set_ylim(bbox.miny, bbox.maxy)
@@ -300,9 +292,7 @@ def pcolormesh_response(lon, lat, data, request, dpi=None):
         norm_func = mpl.colors.Normalize
 
     if cmin is not None and cmax is not None:
-        data[data > cmax] = cmax
-        data[data < cmin] = cmin
-        norm = norm = norm_func(vmin=cmin, vmax=cmax)
+        norm = norm = norm_func(vmin=cmin, vmax=cmax, clip=True)
     else:
         norm = norm_func()
 
