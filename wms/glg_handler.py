@@ -84,6 +84,8 @@ def filledcontour(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs[1:-1])
             cb.set_ticklabels([ "%.1f" % x for x in levs[1:-1] ])
 
@@ -95,6 +97,8 @@ def filledcontour(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs)
             cb.set_ticklabels([ "%.1f" % x for x in levs ])
 
@@ -123,6 +127,8 @@ def hatches(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs[1:-1])
             cb.set_ticklabels([ "%.1f" % x for x in levs[1:-1] ])
 
@@ -135,6 +141,8 @@ def hatches(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs)
             cb.set_ticklabels([ "%.1f" % x for x in levs ])
 
@@ -163,6 +171,8 @@ def filledhatches(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs[1:-1])
             cb.set_ticklabels([ "%.1f" % x for x in levs[1:-1] ])
 
@@ -175,6 +185,8 @@ def filledhatches(request):
         if request.GET['showvalues'] is False:
             cb.set_ticks([])
         else:
+            if request.GET.get('ticks', None) is not None:
+                levs = [float(t) for t in request.GET['ticks'].strip().split(',')]
             cb.set_ticks(levs)
             cb.set_ticklabels([ "%.1f" % x for x in levs ])
 
@@ -249,6 +261,8 @@ def gradiant(request):
     else:
         csr = request.GET['colorscalerange']
         ticks = np.linspace(csr.min, csr.max, 5)
+        if request.GET.get('ticks', None) is not None:
+            ticks = [float(t) for t in request.GET['ticks'].strip().split(',')]
         cb.set_ticks(ticks)
         cb.set_ticklabels([ "%.1f" % x for x in ticks ])
 
